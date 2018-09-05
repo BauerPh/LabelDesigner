@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B1C34944-5AF3-4678-B1F0-0B2EA592F80A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>LabelDesigner.My.MyApplication</StartupObject>
+    <RootNamespace>LabelDesigner</RootNamespace>
+    <AssemblyName>LabelDesigner</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\Users\phili\Desktop\LabelDesigner\</PublishUrl>
+    <Install>false</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>LabelDesigner.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>LabelDesigner.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>7DB09B48B4C7E4A16369004E0386054CB0282BE3</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>LabelDesigner_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Add.Designer.vb">
+      <DependentUpon>Add.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Add.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Barcode.vb" />
+    <Compile Include="Print.vb" />
+    <Compile Include="TCPConnection.vb" />
+    <Compile Include="TCPSettings.Designer.vb">
+      <DependentUpon>TCPSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TCPSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="vars.vb" />
+    <Compile Include="Text.vb" />
+    <Compile Include="Geometric.vb" />
+    <Compile Include="Box.vb" />
+    <Compile Include="Datamatrix.vb" />
+    <Compile Include="Logo.vb" />
+    <Compile Include="Line.vb" />
+    <Compile Include="Label.vb" />
+    <Compile Include="MainForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.vb">
+      <DependentUpon>MainForm.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Add.resx">
+      <DependentUpon>Add.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TCPSettings.resx">
+      <DependentUpon>TCPSettings.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\datamatrix.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 und x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-007-logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-ausschneiden.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-bearbeiten.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-datei-ansehen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-deckkraft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-dreieck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-fett-gedruckt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-fonticons.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-generischer-text.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-gestrichenes-rechteck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-horizontale-linie.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-kopieren.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-kreis.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-kursiv.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-lineal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-linie.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-löschen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-löschen-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-menü.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-qr-code.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-rechteck-filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-rückgängig-machen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-speichern.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-speichern-als.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-strichcode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-textfeld.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-unterstreichen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-wiederholen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-fenster-schließen-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\barcode.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\icons8-wired-netzwerkverbindung-32.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+</Project>

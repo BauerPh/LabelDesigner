@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2005
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LabelDesigner", "LabelDesigner\LabelDesigner.vbproj", "{B1C34944-5AF3-4678-B1F0-0B2EA592F80A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B1C34944-5AF3-4678-B1F0-0B2EA592F80A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1C34944-5AF3-4678-B1F0-0B2EA592F80A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1C34944-5AF3-4678-B1F0-0B2EA592F80A}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1C34944-5AF3-4678-B1F0-0B2EA592F80A}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B0D6BAB3-9DF6-422E-AF8A-AB73F9B23C3C}
+	EndGlobalSection
+EndGlobal
