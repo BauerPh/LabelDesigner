@@ -9,8 +9,10 @@ Public Class TCPConnection
 
     Public Delegate Sub connectedCallback()
     Public Delegate Sub lineReceivedCallback(data As String)
+    Public Delegate Sub errorCallback()
 
     Private _connectedCallback As connectedCallback
+    Private _errorCallback As errorCallback
     Private _lineReceivedCallback As lineReceivedCallback
 
     'Background Worker
@@ -66,12 +68,14 @@ Public Class TCPConnection
     Private Sub _connectBGW_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles _connectBGW.RunWorkerCompleted
         If e.Cancelled Then
             MessageBox.Show("TCP Verbindung fehlgeschlagen...", "TCP", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            _errorCallback()
             Return
         End If
 
         Select Case CInt(e.Result)
             Case 0 'Fehler
                 MessageBox.Show("TCP Fehler...", "TCP", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                _errorCallback()
             Case 1, 2 'Verbunden
                 If _connectedCallback IsNot Nothing Then
                     _connectedCallback()
@@ -81,6 +85,7 @@ Public Class TCPConnection
                 End If
             Case Else
                 MessageBox.Show("Unmöglicher Fehler aufgetreten...?!", "TCP", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                _errorCallback()
         End Select
     End Sub
     Private Sub connectTimeout_Elapsed(sender As Object, e As EventArgs)
@@ -116,6 +121,9 @@ Public Class TCPConnection
     'Public API
     Public Sub setConnectedCallback(cb As connectedCallback)
         _connectedCallback = cb
+    End Sub
+    Public Sub setErrorCallback(cb As errorCallback)
+        _errorCallback = cb
     End Sub
     Public Sub setLineReceivedCallback(cb As lineReceivedCallback)
         _lineReceivedCallback = cb

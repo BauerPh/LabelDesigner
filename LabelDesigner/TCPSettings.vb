@@ -31,6 +31,7 @@ Public Class frmTCPSettings
             _TCPCon = New TCPConnection
             _TCPCon.connect(tbTCPIP.Text, CShort(numTCPPort.Value))
             _TCPCon.setConnectedCallback(AddressOf tcpConnectedCb)
+            _TCPCon.setErrorCallback(AddressOf tcpErrorCb)
             btnTestConnection.Enabled = False
         Else
             MessageBox.Show("""" & tbTCPIP.Text & """ ist keine gültige Ip-Adresse!", "IP-Adresse", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -43,6 +44,10 @@ Public Class frmTCPSettings
         _Timeout = New Timer(_cCheckConnectionTimeoutMs)
         AddHandler _Timeout.Elapsed, AddressOf Timout_Elapsed
         _Timeout.Start()
+    End Sub
+
+    Private Sub tcpErrorCb()
+        btnTestConnection.Enabled = True
     End Sub
 
     Private Sub tcpOnReceive(text As String)
