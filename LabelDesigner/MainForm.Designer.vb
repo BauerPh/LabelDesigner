@@ -52,10 +52,13 @@ Partial Class frmMain
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnPrint = New System.Windows.Forms.Button()
         Me.btnMove = New System.Windows.Forms.Button()
+        Me.numRaster = New System.Windows.Forms.NumericUpDown()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         CType(Me.pbLabel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.menuStrip1.SuspendLayout()
         Me.toolStrip1.SuspendLayout()
+        CType(Me.numRaster, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'rtbDPLCode
@@ -300,11 +303,33 @@ Partial Class frmMain
         Me.btnMove.Text = "Verschieben"
         Me.btnMove.UseVisualStyleBackColor = True
         '
+        'numRaster
+        '
+        Me.numRaster.Location = New System.Drawing.Point(57, 662)
+        Me.numRaster.Maximum = New Decimal(New Integer() {20, 0, 0, 0})
+        Me.numRaster.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numRaster.Name = "numRaster"
+        Me.numRaster.Size = New System.Drawing.Size(47, 20)
+        Me.numRaster.TabIndex = 33
+        Me.numRaster.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(3, 664)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(48, 13)
+        Me.Label3.TabIndex = 34
+        Me.Label3.Text = "Raster:"
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1068, 666)
+        Me.ClientSize = New System.Drawing.Size(1068, 690)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.numRaster)
         Me.Controls.Add(Me.btnMove)
         Me.Controls.Add(Me.btnPrint)
         Me.Controls.Add(Me.Label2)
@@ -329,6 +354,7 @@ Partial Class frmMain
         Me.menuStrip1.PerformLayout()
         Me.toolStrip1.ResumeLayout(False)
         Me.toolStrip1.PerformLayout()
+        CType(Me.numRaster, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -363,4 +389,6 @@ Partial Class frmMain
     Friend WithEvents msTCPSettings As ToolStripMenuItem
     Friend WithEvents btnPrint As Button
     Friend WithEvents btnMove As Button
+    Friend WithEvents numRaster As NumericUpDown
+    Friend WithEvents Label3 As Windows.Forms.Label
 End Class

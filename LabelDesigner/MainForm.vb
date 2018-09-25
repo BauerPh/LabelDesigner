@@ -98,7 +98,7 @@ Public Class frmMain
     'Objekte positionieren / verschieben
     Private Sub pbLabel_MouseMove(sender As Object, e As MouseEventArgs) Handles pbLabel.MouseMove
         If mouseObj IsNot Nothing Then
-            vars.label.move(mouseObj, pbLabel, e.X, e.Y)
+            vars.label.move(mouseObj, pbLabel, e.X, e.Y, CInt(numRaster.Value))
             pbLabel.Invalidate()
             updPictureBoxOnly = True
         End If

@@ -88,7 +88,11 @@ Public Class Label
     End Sub
 
     Public Function getObject(index As Int32) As Object
-        Return _objList(index)
+        If index >= 0 Then
+            Return _objList(index)
+        Else
+            Return Nothing
+        End If
     End Function
 
     Public Sub highlight(index As Int32)
@@ -124,9 +128,11 @@ Public Class Label
         End If
     End Sub
 
-    Public Sub move(obj As Object, pb As PictureBox, x As Integer, y As Integer)
+    Public Sub move(obj As Object, pb As PictureBox, x As Integer, y As Integer, raster As Integer)
         Dim _x As Single = PxTomm(x - _origin.X)
         Dim _y As Single = PxTomm(_origin.Y - y)
+        _x = CSng(Math.Round(_x / raster, 0)) * raster
+        _y = CSng(Math.Round(_y / raster, 0)) * raster
         If _x < 0.0 Then _x = 0.0
         If _y < 0.0 Then _y = 0.0
 
