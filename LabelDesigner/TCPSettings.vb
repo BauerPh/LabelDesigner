@@ -57,6 +57,11 @@ Public Class frmTCPSettings
     End Sub
 
     Private Sub Timout_Elapsed(sender As Object, e As EventArgs)
+        If InvokeRequired Then
+            Invoke(Sub() Timout_Elapsed(sender, e))
+            Return
+        End If
+
         _Timeout.Stop()
         _TCPCon.disconnect()
         MessageBox.Show("Die Verbindung war erfolgreich, der Drucker antwortet jedoch nicht!", "Verbindungscheck", MessageBoxButtons.OK, MessageBoxIcon.Warning)

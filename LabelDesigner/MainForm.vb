@@ -2,33 +2,27 @@
 Public Class frmMain
     Private updListBox As Boolean = True
     Private updPictureBoxOnly As Boolean = False
-    Private mouseObj As Object
+    Public mouseObj As Object
 
     Private Sub toolStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles toolStrip1.ItemClicked
         Select Case e.ClickedItem.Name
             Case tsbtnAddLine.Name
-                mouseObj = New Line()
-                frmAdd.pgAdd.SelectedObject = mouseObj
+                frmAdd.pgAdd.SelectedObject = New Line()
                 frmAdd.Text = "Linie hinzufügen"
             Case tsbtnAddBox.Name
-                mouseObj = New Box()
-                frmAdd.pgAdd.SelectedObject = mouseObj
+                frmAdd.pgAdd.SelectedObject = New Box()
                 frmAdd.Text = "Box hinzufügen"
             Case tsbtnAddText.Name
-                mouseObj = New Text()
-                frmAdd.pgAdd.SelectedObject = mouseObj
+                frmAdd.pgAdd.SelectedObject = New Text()
                 frmAdd.Text = "Text hinzufügen"
             Case tsbtnAddDatamatrixcode.Name
-                mouseObj = New Datamatrix()
-                frmAdd.pgAdd.SelectedObject = mouseObj
+                frmAdd.pgAdd.SelectedObject = New Datamatrix()
                 frmAdd.Text = "Datamatrixbarcode hinzufügen"
             Case tsbtnAddBarcode.Name
-                mouseObj = New Barcode()
-                frmAdd.pgAdd.SelectedObject = mouseObj
+                frmAdd.pgAdd.SelectedObject = New Barcode()
                 frmAdd.Text = "Strichcode hinzufügen"
             Case tsbtnAddLogo.Name
-                mouseObj = New Logo()
-                frmAdd.pgAdd.SelectedObject = mouseObj
+                frmAdd.pgAdd.SelectedObject = New Logo()
                 frmAdd.Text = "Logo hinzufügen"
             Case Else
                 Exit Sub
