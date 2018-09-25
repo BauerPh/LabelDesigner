@@ -51,6 +51,7 @@ Partial Class frmMain
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnPrint = New System.Windows.Forms.Button()
+        Me.btnMove = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         CType(Me.pbLabel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.menuStrip1.SuspendLayout()
@@ -290,11 +291,21 @@ Partial Class frmMain
         Me.btnPrint.Text = "Drucken"
         Me.btnPrint.UseVisualStyleBackColor = True
         '
+        'btnMove
+        '
+        Me.btnMove.Location = New System.Drawing.Point(702, 637)
+        Me.btnMove.Name = "btnMove"
+        Me.btnMove.Size = New System.Drawing.Size(75, 23)
+        Me.btnMove.TabIndex = 32
+        Me.btnMove.Text = "Verschieben"
+        Me.btnMove.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1068, 666)
+        Me.Controls.Add(Me.btnMove)
         Me.Controls.Add(Me.btnPrint)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
@@ -311,7 +322,7 @@ Partial Class frmMain
         Me.MaximizeBox = False
         Me.Name = "frmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Label Designer v1.0"
+        Me.Text = "Label Designer v1.1"
         Me.Panel1.ResumeLayout(False)
         CType(Me.pbLabel, System.ComponentModel.ISupportInitialize).EndInit()
         Me.menuStrip1.ResumeLayout(False)
@@ -351,4 +362,5 @@ Partial Class frmMain
     Friend WithEvents EinstellungenToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents msTCPSettings As ToolStripMenuItem
     Friend WithEvents btnPrint As Button
+    Friend WithEvents btnMove As Button
 End Class

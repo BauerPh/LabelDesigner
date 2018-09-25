@@ -1,26 +1,34 @@
 ﻿Option Strict On
 Public Class frmMain
     Private updListBox As Boolean = True
+    Private updPictureBoxOnly As Boolean = False
+    Private mouseObj As Object
 
     Private Sub toolStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles toolStrip1.ItemClicked
         Select Case e.ClickedItem.Name
             Case tsbtnAddLine.Name
-                frmAdd.pgAdd.SelectedObject = New Line()
+                mouseObj = New Line()
+                frmAdd.pgAdd.SelectedObject = mouseObj
                 frmAdd.Text = "Linie hinzufügen"
             Case tsbtnAddBox.Name
-                frmAdd.pgAdd.SelectedObject = New Box()
+                mouseObj = New Box()
+                frmAdd.pgAdd.SelectedObject = mouseObj
                 frmAdd.Text = "Box hinzufügen"
             Case tsbtnAddText.Name
-                frmAdd.pgAdd.SelectedObject = New Text()
+                mouseObj = New Text()
+                frmAdd.pgAdd.SelectedObject = mouseObj
                 frmAdd.Text = "Text hinzufügen"
             Case tsbtnAddDatamatrixcode.Name
-                frmAdd.pgAdd.SelectedObject = New Datamatrix()
+                mouseObj = New Datamatrix()
+                frmAdd.pgAdd.SelectedObject = mouseObj
                 frmAdd.Text = "Datamatrixbarcode hinzufügen"
             Case tsbtnAddBarcode.Name
-                frmAdd.pgAdd.SelectedObject = New Barcode()
+                mouseObj = New Barcode()
+                frmAdd.pgAdd.SelectedObject = mouseObj
                 frmAdd.Text = "Strichcode hinzufügen"
             Case tsbtnAddLogo.Name
-                frmAdd.pgAdd.SelectedObject = New Logo()
+                mouseObj = New Logo()
+                frmAdd.pgAdd.SelectedObject = mouseObj
                 frmAdd.Text = "Logo hinzufügen"
             Case Else
                 Exit Sub
@@ -31,6 +39,9 @@ Public Class frmMain
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
         vars.label.delete(lbObjects.SelectedIndex)
         pbLabel.Invalidate()
+    End Sub
+    Private Sub btnMove_Click(sender As Object, e As EventArgs) Handles btnMove.Click
+        mouseObj = vars.label.getObject(lbObjects.SelectedIndex)
     End Sub
     Private Sub btnCopy_Click(sender As Object, e As EventArgs) Handles btnCopy.Click
         Clipboard.SetText(DelCrLf(rtbDPLCode.Text))
@@ -49,8 +60,9 @@ Public Class frmMain
         updListBox = False
     End Sub
     Private Sub pbLabel_Paint(sender As Object, e As PaintEventArgs) Handles pbLabel.Paint
-        vars.label.update(e.Graphics, rtbDPLCode, lbObjects, pgProperties, updListBox)
+        vars.label.update(e.Graphics, rtbDPLCode, lbObjects, pgProperties, updListBox, updPictureBoxOnly)
         updListBox = True
+        updPictureBoxOnly = False
     End Sub
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -87,5 +99,20 @@ Public Class frmMain
     ' Einstellungen
     Private Sub msTCPSettings_Click(sender As Object, e As EventArgs) Handles msTCPSettings.Click
         frmTCPSettings.ShowDialog()
+    End Sub
+
+    'Objekte positionieren / verschieben
+    Private Sub pbLabel_MouseMove(sender As Object, e As MouseEventArgs) Handles pbLabel.MouseMove
+        If mouseObj IsNot Nothing Then
+            vars.label.move(mouseObj, pbLabel, e.X, e.Y)
+            pbLabel.Invalidate()
+            updPictureBoxOnly = True
+        End If
+    End Sub
+
+    Private Sub pbLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles pbLabel.MouseClick
+        mouseObj = Nothing
+        pbLabel.Invalidate()
+        updPictureBoxOnly = False
     End Sub
 End Class

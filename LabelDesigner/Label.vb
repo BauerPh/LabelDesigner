@@ -4,7 +4,6 @@ Imports System.ComponentModel
 <Serializable()>
 Public Class Label
     Private Const cPictureBoxSize As Int32 = 600
-    Private Const cBorderSize As Int32 = 17
 
     Private _objList As New ArrayList
     Private size As New Size()
@@ -37,9 +36,9 @@ Public Class Label
     'PUBLIC METHODS
     Public Sub New(width As Single, height As Single)
         If width > height Then
-            _mmToPx = (cPictureBoxSize - 2 * cBorderSize) / width
+            _mmToPx = (cPictureBoxSize - 2 * BorderSize) / width
         Else
-            _mmToPx = (cPictureBoxSize - 2 * cBorderSize) / height
+            _mmToPx = (cPictureBoxSize - 2 * BorderSize) / height
         End If
         size.Width = CInt(Math.Round(width * _mmToPx))
         size.Height = CInt(Math.Round(height * _mmToPx))
@@ -51,7 +50,7 @@ Public Class Label
     End Sub
 
     Public Sub New()
-        _mmToPx = (cPictureBoxSize - 2 * cBorderSize) / StandardLabelSize
+        _mmToPx = (cPictureBoxSize - 2 * BorderSize) / StandardLabelSize
 
         size.Width = CInt(Math.Round(Width * _mmToPx))
         size.Height = CInt(Math.Round(Height * _mmToPx))
@@ -70,14 +69,16 @@ Public Class Label
         Return False
     End Function
 
-    Public Sub update(ByRef g As Graphics, ByRef rtb As RichTextBox, ByRef lb As ListBox, ByRef pg As PropertyGrid, ByVal updListBox As Boolean)
+    Public Sub update(ByRef g As Graphics, ByRef rtb As RichTextBox, ByRef lb As ListBox, ByRef pg As PropertyGrid, ByVal updListBox As Boolean, ByVal picBoxOnly As Boolean)
         If updListBox Then
             updateListBox(lb)
         End If
         highlight(lb.SelectedIndex)
         draw(g)
-        generateDPLCode(rtb)
-        showProp(lb.SelectedIndex, pg)
+        If Not picBoxOnly Then
+            generateDPLCode(rtb)
+            showProp(lb.SelectedIndex, pg)
+        End If
     End Sub
 
     Public Sub delete(index As Int32)
@@ -85,6 +86,10 @@ Public Class Label
             _objList.RemoveAt(index)
         End If
     End Sub
+
+    Public Function getObject(index As Int32) As Object
+        Return _objList(index)
+    End Function
 
     Public Sub highlight(index As Int32)
         For Each obj In _objList
@@ -119,6 +124,33 @@ Public Class Label
         End If
     End Sub
 
+    Public Sub move(obj As Object, pb As PictureBox, x As Integer, y As Integer)
+        Dim _x As Single = PxTomm(x - _origin.X)
+        Dim _y As Single = PxTomm(_origin.Y - y)
+        If _x < 0.0 Then _x = 0.0
+        If _y < 0.0 Then _y = 0.0
+
+        If TypeOf obj Is Line Then
+            CType(obj, Line).x = _x
+            CType(obj, Line).y = _y
+        ElseIf TypeOf obj Is Box Then
+            CType(obj, Box).x = _x
+            CType(obj, Box).y = _y
+        ElseIf TypeOf obj Is Logo Then
+            CType(obj, Logo).x = _x
+            CType(obj, Logo).y = _y
+        ElseIf TypeOf obj Is Datamatrix Then
+            CType(obj, Datamatrix).x = _x
+            CType(obj, Datamatrix).y = _y
+        ElseIf TypeOf obj Is Text Then
+            CType(obj, Text).x = _x
+            CType(obj, Text).y = _y
+        ElseIf TypeOf obj Is Barcode Then
+            CType(obj, Barcode).x = _x
+            CType(obj, Barcode).y = _y
+        End If
+    End Sub
+
     'PRIVATE METHODS
     Private Sub showProp(index As Int32, ByRef pg As PropertyGrid)
         If index >= 0 And index < _objList.Count Then
@@ -133,7 +165,7 @@ Public Class Label
         'Label zeichnen
         DrawRoundedRect(g, New Pen(Color.Red, 0.1), New SolidBrush(Color.White), rect, 10)
         'Bereich begrenzen
-        'g.SetClip(rect)
+        g.SetClip(rect)
         'Objekte zeichnen
         For Each obj In _objList
             If TypeOf obj Is Line Then

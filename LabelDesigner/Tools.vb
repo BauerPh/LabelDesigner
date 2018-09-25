@@ -77,6 +77,10 @@ Module Tools
         Return CInt(Math.Round(mm * vars.label.mmToPx))
     End Function
 
+    Function PxTomm(Px As Int32) As Single
+        Return CSng(Px) / vars.label.mmToPx
+    End Function
+
     Sub checkValue(value As Int32, min As Int32, max As Int32, ByRef target As Int32)
         If value < min Or value > max Then
             MessageBox.Show("Nur Werte zwischen " & min & " und " & max & " erlaubt!", "Wertebereich", MessageBoxButtons.OK, MessageBoxIcon.Warning)
