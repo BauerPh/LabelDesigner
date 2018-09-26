@@ -2,16 +2,15 @@
 Public Class frmMain
     Private updListBox As Boolean = True
     Private updPictureBoxOnly As Boolean = False
-    Public mouseObj As Object
 
     Private Sub toolStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles toolStrip1.ItemClicked
         Select Case e.ClickedItem.Name
             Case tsbtnAddLine.Name
-                frmAdd.pgAdd.SelectedObject = New Line()
-                frmAdd.Text = "Linie hinzufügen"
+                vars.label.add(New Line())
+                Exit Sub
             Case tsbtnAddBox.Name
-                frmAdd.pgAdd.SelectedObject = New Box()
-                frmAdd.Text = "Box hinzufügen"
+                vars.label.add(New Box())
+                Exit Sub
             Case tsbtnAddText.Name
                 frmAdd.pgAdd.SelectedObject = New Text()
                 frmAdd.Text = "Text hinzufügen"
@@ -35,7 +34,7 @@ Public Class frmMain
         pbLabel.Invalidate()
     End Sub
     Private Sub btnMove_Click(sender As Object, e As EventArgs) Handles btnMove.Click
-        mouseObj = vars.label.getObject(lbObjects.SelectedIndex)
+        vars.label.move(lbObjects.SelectedIndex)
     End Sub
     Private Sub btnCopy_Click(sender As Object, e As EventArgs) Handles btnCopy.Click
         Clipboard.SetText(DelCrLf(rtbDPLCode.Text))
@@ -66,6 +65,7 @@ Public Class frmMain
         Else
             ResourceFilePathPrefix = Application.StartupPath & "\Resources\"
         End If
+        tslbRaster.SelectedIndex = 3
     End Sub
 
     ' Menu Strip
@@ -97,16 +97,16 @@ Public Class frmMain
 
     'Objekte positionieren / verschieben
     Private Sub pbLabel_MouseMove(sender As Object, e As MouseEventArgs) Handles pbLabel.MouseMove
-        If mouseObj IsNot Nothing Then
-            vars.label.move(mouseObj, pbLabel, e.X, e.Y, CInt(numRaster.Value))
+        If vars.label.mouseMove(pbLabel, e.X, e.Y, CSng(tslbRaster.Text)) Then
             pbLabel.Invalidate()
             updPictureBoxOnly = True
         End If
     End Sub
 
     Private Sub pbLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles pbLabel.MouseClick
-        mouseObj = Nothing
-        pbLabel.Invalidate()
-        updPictureBoxOnly = False
+        If vars.label.mouseClick Then
+            pbLabel.Invalidate()
+            updPictureBoxOnly = False
+        End If
     End Sub
 End Class

@@ -21,9 +21,10 @@ Public Class Barcode
 
     Private _typ As enumTyp = enumTyp.UPC_A
     Private _secTyp As enumTyp2 = enumTyp2.drucken
-    Private _narrowBarWidth As Int32 = 0
-    Private _symbolHeight As Int32 = 0
+    Private _narrowBarWidth As Int32 = 5
+    Private _symbolHeight As Int32 = 5
     Private _data As String = _typExampString(0)
+    Private _image As Image
 
     <Category("Barcode")>
     Public Property Typ As enumTyp
@@ -72,46 +73,27 @@ Public Class Barcode
             _data = Value
         End Set
     End Property
-
-    Private _test As Int32 = 48
-    <Category("Test")>
-    Public Property Test1 As Int32
-        Get
-            Return _test
-        End Get
-        Set
-            _test = Value
-        End Set
-    End Property
-
-    Private _test1 As Int32 = 48
-    <Category("Test")>
-    Public Property Test2 As Int32
-        Get
-            Return _test1
-        End Get
-        Set
-            _test1 = Value
-        End Set
-    End Property
-
-    Public Sub draw(ByRef g As Graphics, origin As Point)
+    Public Sub New()
         If Not IO.File.Exists(ResourceFilePathPrefix & "barcode.png") Then
-            MsgBox("Die Datei wurde nicht gefunden!")
+            MsgBox("Die Datei ""barcode.png"" wurde nicht gefunden!")
             Exit Sub
         End If
+        _image = Image.FromFile(ResourceFilePathPrefix & "barcode.png")
+    End Sub
 
-        Dim pos As New Size(mmToPx(_point.X), mmToPx(_point.Y) * -1)
-        Dim newOrigin As New Point
-        newOrigin = origin + pos
+    Public Sub draw(ByRef g As Graphics, origin As Point)
+        If _image IsNot Nothing Then
+            Dim pos As New Size(mmToPx(_point.X), mmToPx(_point.Y) * -1)
+            Dim newOrigin As New Point
+            newOrigin = origin + pos
 
-        Dim image As Image = Image.FromFile(ResourceFilePathPrefix & "barcode.png")
-        Dim imgSize As New Size(_test, _test1)
+            Dim imgSize As New Size(48 * _narrowBarWidth, 10 * _symbolHeight)
 
-        g.DrawImage(image, newOrigin.X, newOrigin.Y - imgSize.Height, imgSize.Width, imgSize.Height)
+            g.DrawImage(_image, newOrigin.X, newOrigin.Y - imgSize.Height, imgSize.Width, imgSize.Height)
 
-        If _highlight Then
-            g.DrawRectangle(New Pen(Color.GreenYellow, 5.0), newOrigin.X, newOrigin.Y - imgSize.Height, imgSize.Width, imgSize.Height)
+            If _highlight Then
+                g.DrawRectangle(New Pen(Color.GreenYellow, 5.0), newOrigin.X, newOrigin.Y - imgSize.Height, imgSize.Width, imgSize.Height)
+            End If
         End If
     End Sub
 

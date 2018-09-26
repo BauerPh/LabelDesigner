@@ -5,9 +5,9 @@ Imports System.Drawing.Drawing2D
 Public Class Box
     Inherits Geometric
 
-    Private _size As New SizeF(50.0, 50.0)
-    Private _thicknessTopBottom As Single = 0.1
-    Private _thicknessSide As Single = 0.1
+    Private _size As New SizeF(10.0, 10.0)
+    Private _thicknessTopBottom As Single = 0.5
+    Private _thicknessSide As Single = 0.5
 
     <Category("Größe")>
     Public Property Breite As Single

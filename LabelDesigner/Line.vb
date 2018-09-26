@@ -6,7 +6,7 @@ Imports System.Drawing.Drawing2D
 Public Class Line
     Inherits Geometric
 
-    Private _size As New SizeF(100.0, 0.5)
+    Private _size As New SizeF(10.0, 0.5)
 
     <Category("Größe")>
     Public Property Breite As Single

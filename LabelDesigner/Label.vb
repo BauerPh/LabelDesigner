@@ -6,6 +6,9 @@ Public Class Label
     Private Const cPictureBoxSize As Int32 = 600
 
     Private _objList As New ArrayList
+    Private _mouseObj As Object = Nothing
+    Private _mouseObjStep As Integer
+
     Private size As New Size()
     Private _mmToPx As Single
 
@@ -64,6 +67,12 @@ Public Class Label
     Public Function add(obj As Object) As Boolean
         If TypeOf obj Is Line Or TypeOf obj Is Box Or TypeOf obj Is Logo Or TypeOf obj Is Datamatrix Or TypeOf obj Is Text Or TypeOf obj Is Barcode Then
             _objList.Add(obj)
+            _mouseObj = _objList(_objList.Count - 1)
+            If TypeOf obj Is Line Or TypeOf obj Is Box Then
+                _mouseObjStep = 1
+            Else
+                _mouseObjStep = 3
+            End If
             Return True
         End If
         Return False
@@ -87,13 +96,12 @@ Public Class Label
         End If
     End Sub
 
-    Public Function getObject(index As Int32) As Object
+    Public Sub move(index As Int32)
         If index >= 0 Then
-            Return _objList(index)
-        Else
-            Return Nothing
+            _mouseObj = _objList(index)
+            _mouseObjStep = 3
         End If
-    End Function
+    End Sub
 
     Public Sub highlight(index As Int32)
         For Each obj In _objList
@@ -128,34 +136,82 @@ Public Class Label
         End If
     End Sub
 
-    Public Sub move(obj As Object, pb As PictureBox, x As Integer, y As Integer, raster As Integer)
-        Dim _x As Single = PxTomm(x - _origin.X)
-        Dim _y As Single = PxTomm(_origin.Y - y)
-        _x = CSng(Math.Round(_x / raster, 0)) * raster
-        _y = CSng(Math.Round(_y / raster, 0)) * raster
-        If _x < 0.0 Then _x = 0.0
-        If _y < 0.0 Then _y = 0.0
+    Public Function mouseMove(pb As PictureBox, x As Integer, y As Integer, raster As Single) As Boolean
+        If _mouseObj IsNot Nothing Then
+            Dim _x As Single = PxTomm(x - _origin.X)
+            Dim _y As Single = PxTomm(_origin.Y - y)
+            _x = CSng(Math.Round(_x / raster, 0)) * raster
+            _y = CSng(Math.Round(_y / raster, 0)) * raster
+            If _x < 0.0 Then _x = 0.0
+            If _y < 0.0 Then _y = 0.0
 
-        If TypeOf obj Is Line Then
-            CType(obj, Line).x = _x
-            CType(obj, Line).y = _y
-        ElseIf TypeOf obj Is Box Then
-            CType(obj, Box).x = _x
-            CType(obj, Box).y = _y
-        ElseIf TypeOf obj Is Logo Then
-            CType(obj, Logo).x = _x
-            CType(obj, Logo).y = _y
-        ElseIf TypeOf obj Is Datamatrix Then
-            CType(obj, Datamatrix).x = _x
-            CType(obj, Datamatrix).y = _y
-        ElseIf TypeOf obj Is Text Then
-            CType(obj, Text).x = _x
-            CType(obj, Text).y = _y
-        ElseIf TypeOf obj Is Barcode Then
-            CType(obj, Barcode).x = _x
-            CType(obj, Barcode).y = _y
+            If TypeOf _mouseObj Is Line Then
+                Dim obj As Line = CType(_mouseObj, Line)
+                If _mouseObjStep = 2 Then
+                    Dim diffX = _x - obj.x
+                    Dim diffY = _y - obj.y
+                    If diffX <= 0 Then
+                        diffX = raster
+                    End If
+                    If diffY <= 0 Then
+                        diffY = raster
+                    End If
+                    obj.Breite = diffX
+                    obj.Höhe = diffY
+                Else
+                    obj.x = _x
+                    obj.y = _y
+                End If
+            ElseIf TypeOf _mouseObj Is Box Then
+                Dim obj As Box = CType(_mouseObj, Box)
+                If _mouseObjStep = 2 Then
+                    Dim diffX = _x - obj.x
+                    Dim diffY = _y - obj.y
+                    If diffX <= 0 Then
+                        diffX = raster
+                    End If
+                    If diffY <= 0 Then
+                        diffY = raster
+                    End If
+                    obj.Breite = diffX
+                    obj.Höhe = diffY
+                Else
+                    obj.x = _x
+                    obj.y = _y
+                End If
+            ElseIf TypeOf _mouseObj Is Logo Then
+                Dim obj As Logo = CType(_mouseObj, Logo)
+                obj.x = _x
+                obj.y = _y
+            ElseIf TypeOf _mouseObj Is Datamatrix Then
+                Dim obj As Datamatrix = CType(_mouseObj, Datamatrix)
+                obj.x = _x
+                obj.y = _y
+            ElseIf TypeOf _mouseObj Is Text Then
+                Dim obj As Text = CType(_mouseObj, Text)
+                obj.x = _x
+                obj.y = _y
+            ElseIf TypeOf _mouseObj Is Barcode Then
+                Dim obj As Barcode = CType(_mouseObj, Barcode)
+                obj.x = _x
+                obj.y = _y
+            End If
+            Return True
         End If
-    End Sub
+        Return False
+    End Function
+
+    Public Function mouseClick() As Boolean
+        If _mouseObj IsNot Nothing Then
+            If _mouseObjStep = 1 Then
+                _mouseObjStep = 2
+            Else
+                _mouseObj = Nothing
+            End If
+            Return True
+        End If
+        Return False
+    End Function
 
     'PRIVATE METHODS
     Private Sub showProp(index As Int32, ByRef pg As PropertyGrid)

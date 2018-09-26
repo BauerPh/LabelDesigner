@@ -11,6 +11,7 @@ Public Class Logo
     Private _heightMultiplier As Int32 = 1
     Private _imageName As String = "mhk"
     Private _imageFilename As String
+    Private _image As Image
 
     <Category("Größe")>
     Public Property Breitenfaktor As Int32
@@ -50,24 +51,23 @@ Public Class Logo
         End Get
         Set
             _imageFilename = Value
+            If IO.File.Exists(_imageFilename) Then _image = Image.FromFile(_imageFilename)
         End Set
     End Property
 
     Public Sub draw(ByRef g As Graphics, origin As Point)
-        If Not IO.File.Exists(_imageFilename) Then Exit Sub
+        If _image IsNot Nothing Then
+            Dim pos As New Size(mmToPx(_point.X), mmToPx(_point.Y) * -1)
+            Dim newOrigin As New Point
+            newOrigin = origin + pos
 
-        Dim pos As New Size(mmToPx(_point.X), mmToPx(_point.Y) * -1)
-        Dim newOrigin As New Point
-        newOrigin = origin + pos
+            Dim imgSize As New Size(CInt(Math.Round((_image.Width / 2.1))) * _widthMultiplier, CInt(Math.Round((_image.Height / 2.1))) * _heightMultiplier)
 
+            g.DrawImage(_image, newOrigin.X, newOrigin.Y - imgSize.Height, imgSize.Width, imgSize.Height)
 
-        Dim image As Image = Image.FromFile(_imageFilename)
-        Dim imgSize As New Size(CInt(Math.Round((image.Width / 2.1))) * _widthMultiplier, CInt(Math.Round((image.Height / 2.1))) * _heightMultiplier)
-
-        g.DrawImage(image, newOrigin.X, newOrigin.Y - imgSize.Height, imgSize.Width, imgSize.Height)
-
-        If _highlight Then
-            g.DrawRectangle(New Pen(Color.GreenYellow, 5.0), newOrigin.X, newOrigin.Y - imgSize.Height, imgSize.Width, imgSize.Height)
+            If _highlight Then
+                g.DrawRectangle(New Pen(Color.GreenYellow, 5.0), newOrigin.X, newOrigin.Y - imgSize.Height, imgSize.Width, imgSize.Height)
+            End If
         End If
     End Sub
 

@@ -10,6 +10,7 @@ Public Class Datamatrix
     Private _dataLen As Int32
     Private _codeSize As Int32 = 18 'rows / columns
     Private _data As String = "data"
+    Private _image As Image
 
     <Category("Größe")>
     Public Property Breitenfaktor As Int32
@@ -56,23 +57,27 @@ Public Class Datamatrix
         End Set
     End Property
 
-    Public Sub draw(ByRef g As Graphics, origin As Point)
-        If Not IO.File.Exists(ResourceFilePathPrefix & "datamatrix.gif") Then
-            MsgBox("Die Datei wurde nicht gefunden!")
+    Public Sub New()
+        If Not IO.File.Exists(ResourceFilePathPrefix & "datamatrix.png") Then
+            MsgBox("Die Datei ""datamatrix.png"" wurde nicht gefunden!")
             Exit Sub
         End If
+        _image = Image.FromFile(ResourceFilePathPrefix & "datamatrix.png")
+    End Sub
 
-        Dim pos As New Size(mmToPx(_point.X), mmToPx(_point.Y) * -1)
-        Dim newOrigin As New Point
-        newOrigin = origin + pos
+    Public Sub draw(ByRef g As Graphics, origin As Point)
+        If _image IsNot Nothing Then
+            Dim pos As New Size(mmToPx(_point.X), mmToPx(_point.Y) * -1)
+            Dim newOrigin As New Point
+            newOrigin = origin + pos
 
-        Dim image As Image = Image.FromFile(ResourceFilePathPrefix & "datamatrix.gif")
-        Dim imgSize As New Size(CInt(Math.Round(_widthMultiplier * _codeSize * 0.47)), CInt(Math.Round(_heightMultiplier * _codeSize * 0.47)))
+            Dim imgSize As New Size(CInt(Math.Round(_widthMultiplier * _codeSize * 0.47)), CInt(Math.Round(_heightMultiplier * _codeSize * 0.47)))
 
-        g.DrawImage(image, newOrigin.X, newOrigin.Y - imgSize.Height, imgSize.Width, imgSize.Height)
+            g.DrawImage(_image, newOrigin.X, newOrigin.Y - imgSize.Height, imgSize.Width, imgSize.Height)
 
-        If _highlight Then
-            g.DrawRectangle(New Pen(Color.GreenYellow, 5.0), newOrigin.X, newOrigin.Y - imgSize.Height, imgSize.Width, imgSize.Height)
+            If _highlight Then
+                g.DrawRectangle(New Pen(Color.GreenYellow, 5.0), newOrigin.X, newOrigin.Y - imgSize.Height, imgSize.Width, imgSize.Height)
+            End If
         End If
     End Sub
 
