@@ -61,9 +61,9 @@ Public Class Text
 
         Dim font As New Font("Arial", _charSize + 9)
         Dim stringSize As SizeF = g.MeasureString(_dataString, font)
-        Dim fontRect As New Rectangle(newOrigin.X, newOrigin.Y - CInt(stringSize.Height - 2), CInt(stringSize.Width), CInt(stringSize.Height - 2))
+        Dim fontRect As New Rectangle(newOrigin.X, newOrigin.Y - CInt(stringSize.Height - 2), CInt(stringSize.Width + 1), CInt(stringSize.Height - 2))
 
-        g.DrawString(_dataString, font, New SolidBrush(Color.Black), fontRect)  '(image, newOrigin.X, newOrigin.Y - imgSize.Height, imgSize.Width, imgSize.Height)
+        g.DrawString(_dataString, font, New SolidBrush(Color.Black), fontRect)
 
         If _highlight Then
             g.DrawRectangle(New Pen(Color.GreenYellow, 5.0), fontRect)
