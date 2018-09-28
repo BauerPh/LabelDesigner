@@ -55,10 +55,13 @@ Partial Class frmMain
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnPrint = New System.Windows.Forms.Button()
         Me.btnMove = New System.Windows.Forms.Button()
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.lblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.Panel1.SuspendLayout()
         CType(Me.pbLabel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.menuStrip1.SuspendLayout()
         Me.toolStrip1.SuspendLayout()
+        Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'rtbDPLCode
@@ -126,6 +129,7 @@ Partial Class frmMain
         Me.menuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DateiToolStripMenuItem, Me.EinstellungenToolStripMenuItem})
         Me.menuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.menuStrip1.Name = "menuStrip1"
+        Me.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.menuStrip1.Size = New System.Drawing.Size(1068, 24)
         Me.menuStrip1.TabIndex = 26
         Me.menuStrip1.Text = "msMenu"
@@ -185,7 +189,7 @@ Partial Class frmMain
         Me.toolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbtnAddLine, Me.tsbtnAddBox, Me.ToolStripSeparator1, Me.tsbtnAddText, Me.ToolStripSeparator2, Me.tsbtnAddDatamatrixcode, Me.tsbtnAddBarcode, Me.ToolStripSeparator3, Me.tsbtnAddLogo, Me.ToolStripSeparator4, Me.ToolStripLabel1, Me.tslbRaster})
         Me.toolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.toolStrip1.Name = "toolStrip1"
-        Me.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
+        Me.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.toolStrip1.Size = New System.Drawing.Size(1068, 25)
         Me.toolStrip1.TabIndex = 27
         Me.toolStrip1.Text = "ToolStrip1"
@@ -323,11 +327,28 @@ Partial Class frmMain
         Me.btnMove.Text = "Verschieben"
         Me.btnMove.UseVisualStyleBackColor = True
         '
+        'StatusStrip1
+        '
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblStatus})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 668)
+        Me.StatusStrip1.Name = "StatusStrip1"
+        Me.StatusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
+        Me.StatusStrip1.Size = New System.Drawing.Size(1068, 22)
+        Me.StatusStrip1.SizingGrip = False
+        Me.StatusStrip1.TabIndex = 33
+        Me.StatusStrip1.Text = "StatusStrip1"
+        '
+        'lblStatus
+        '
+        Me.lblStatus.Name = "lblStatus"
+        Me.lblStatus.Size = New System.Drawing.Size(0, 17)
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1068, 666)
+        Me.ClientSize = New System.Drawing.Size(1068, 690)
+        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.btnMove)
         Me.Controls.Add(Me.btnPrint)
         Me.Controls.Add(Me.Label2)
@@ -342,16 +363,19 @@ Partial Class frmMain
         Me.Controls.Add(Me.menuStrip1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.Name = "frmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Label Designer v1.2.1"
+        Me.Text = "Label Designer"
         Me.Panel1.ResumeLayout(False)
         CType(Me.pbLabel, System.ComponentModel.ISupportInitialize).EndInit()
         Me.menuStrip1.ResumeLayout(False)
         Me.menuStrip1.PerformLayout()
         Me.toolStrip1.ResumeLayout(False)
         Me.toolStrip1.PerformLayout()
+        Me.StatusStrip1.ResumeLayout(False)
+        Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -389,4 +413,6 @@ Partial Class frmMain
     Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
     Friend WithEvents ToolStripLabel1 As ToolStripLabel
     Friend WithEvents tslbRaster As ToolStripComboBox
+    Friend WithEvents StatusStrip1 As StatusStrip
+    Friend WithEvents lblStatus As ToolStripStatusLabel
 End Class

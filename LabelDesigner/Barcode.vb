@@ -2,8 +2,7 @@
 Imports System.ComponentModel
 Imports System.Drawing.Drawing2D
 <Serializable()>
-Public Class Barcode
-    Inherits Geometric
+Public Class Barcode : Inherits LabelObject
     Public Enum enumTyp
         UPC_A = 0
         UPC_E = 2
@@ -75,13 +74,14 @@ Public Class Barcode
     End Property
     Public Sub New()
         If Not IO.File.Exists(ResourceFilePathPrefix & "barcode.png") Then
-            MsgBox("Die Datei ""barcode.png"" wurde nicht gefunden!")
+            MessageBox.Show("Die Datei ""barcode.png"" wurde nicht gefunden!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
         _image = Image.FromFile(ResourceFilePathPrefix & "barcode.png")
+        _name = "Barcode"
     End Sub
 
-    Public Sub draw(ByRef g As Graphics, origin As Point)
+    Public Overrides Sub draw(ByRef g As Graphics, origin As Point)
         If _image IsNot Nothing Then
             Dim pos As New Size(mmToPx(_point.X), mmToPx(_point.Y) * -1)
             Dim newOrigin As New Point
@@ -97,7 +97,7 @@ Public Class Barcode
         End If
     End Sub
 
-    Public Function generateDPLCode() As String
+    Public Overrides Function generateDPLCode() As String
         '1      F       0       0       000     0015    0100    012345678901
         'rot    Typ     wide    narrow  height  row     column  data
 

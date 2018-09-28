@@ -68,14 +68,14 @@ Public Class TCPConnection
     Private Sub _connectBGW_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles _connectBGW.RunWorkerCompleted
         If e.Cancelled Then
             MessageBox.Show("TCP Verbindung fehlgeschlagen...", "TCP", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            _errorCallback()
+            If _errorCallback IsNot Nothing Then _errorCallback()
             Return
         End If
 
         Select Case CInt(e.Result)
             Case 0 'Fehler
                 MessageBox.Show("TCP Fehler...", "TCP", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                _errorCallback()
+                If _errorCallback IsNot Nothing Then _errorCallback()
             Case 1, 2 'Verbunden
                 If _connectedCallback IsNot Nothing Then
                     _connectedCallback()
@@ -85,7 +85,7 @@ Public Class TCPConnection
                 End If
             Case Else
                 MessageBox.Show("Unmöglicher Fehler aufgetreten...?!", "TCP", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                _errorCallback()
+                If _errorCallback IsNot Nothing Then _errorCallback()
         End Select
     End Sub
     Private Sub connectTimeout_Elapsed(sender As Object, e As EventArgs)

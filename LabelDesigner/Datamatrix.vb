@@ -2,8 +2,7 @@
 Imports System.ComponentModel
 Imports System.Drawing.Drawing2D
 <Serializable()>
-Public Class Datamatrix
-    Inherits Geometric
+Public Class Datamatrix : Inherits LabelObject
 
     Private _widthMultiplier As Int32 = 20
     Private _heightMultiplier As Int32 = 20
@@ -59,13 +58,14 @@ Public Class Datamatrix
 
     Public Sub New()
         If Not IO.File.Exists(ResourceFilePathPrefix & "datamatrix.png") Then
-            MsgBox("Die Datei ""datamatrix.png"" wurde nicht gefunden!")
+            MessageBox.Show("Die Datei ""datamatrix.png"" wurde nicht gefunden!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
         _image = Image.FromFile(ResourceFilePathPrefix & "datamatrix.png")
+        _name = "Datamatrix"
     End Sub
 
-    Public Sub draw(ByRef g As Graphics, origin As Point)
+    Public Overrides Sub draw(ByRef g As Graphics, origin As Point)
         If _image IsNot Nothing Then
             Dim pos As New Size(mmToPx(_point.X), mmToPx(_point.Y) * -1)
             Dim newOrigin As New Point
@@ -81,7 +81,7 @@ Public Class Datamatrix
         End If
     End Sub
 
-    Public Function generateDPLCode() As String
+    Public Overrides Function generateDPLCode() As String
         Return $"1W1C{NumToMultiplier(_widthMultiplier)}{NumToMultiplier(_heightMultiplier)}000{_point.Y * 10:0000}{_point.X * 10:0000}{_dataLen:0000}2000{_codeSize:000}{_codeSize:000}{_data}" & CRString
     End Function
 End Class

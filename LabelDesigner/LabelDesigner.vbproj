@@ -110,6 +110,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Barcode.vb" />
+    <Compile Include="LabelObject2StepPlacing.vb" />
     <Compile Include="Print.vb" />
     <Compile Include="TCPConnection.vb" />
     <Compile Include="TCPSettings.Designer.vb">
@@ -120,7 +121,7 @@
     </Compile>
     <Compile Include="vars.vb" />
     <Compile Include="Text.vb" />
-    <Compile Include="Geometric.vb" />
+    <Compile Include="LabelObject.vb" />
     <Compile Include="Box.vb" />
     <Compile Include="Datamatrix.vb" />
     <Compile Include="Logo.vb" />

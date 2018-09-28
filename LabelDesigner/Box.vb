@@ -1,33 +1,13 @@
 ﻿Option Strict On
 Imports System.ComponentModel
 Imports System.Drawing.Drawing2D
-<Serializable()>
-Public Class Box
-    Inherits Geometric
+Imports LabelDesigner
 
-    Private _size As New SizeF(10.0, 10.0)
+<Serializable()>
+Public Class Box : Inherits LabelObject2StepPlacing
+
     Private _thicknessTopBottom As Single = 0.5
     Private _thicknessSide As Single = 0.5
-
-    <Category("Größe")>
-    Public Property Breite As Single
-        Get
-            Return _size.Width
-        End Get
-        Set
-            checkValue(Value, 0.1, 999.9, _size.Width)
-        End Set
-    End Property
-
-    <Category("Größe")>
-    Public Property Höhe As Single
-        Get
-            Return _size.Height
-        End Get
-        Set
-            checkValue(Value, 0.1, 999.9, _size.Height)
-        End Set
-    End Property
 
     <Category("Linie")>
     Public Property LinienstärkeObenUnten As Single
@@ -49,7 +29,11 @@ Public Class Box
         End Set
     End Property
 
-    Public Sub draw(ByRef g As Graphics, origin As Point)
+    Public Sub New()
+        _name = "Box"
+    End Sub
+
+    Public Overrides Sub draw(ByRef g As Graphics, origin As Point)
         Dim pos As New Size(mmToPx(_point.X), mmToPx(_point.Y) * -1)
         Dim size As New Size(mmToPx(_size.Width), mmToPx(_size.Height))
         Dim newOrigin As New Point
@@ -73,7 +57,7 @@ Public Class Box
         g.DrawLine(pen2, newOrigin.X + size.Width, newOrigin.Y, newOrigin.X + size.Width, newOrigin.Y - size.Height)
     End Sub
 
-    Public Function generateDPLCode() As String
+    Public Overrides Function generateDPLCode() As String
         Dim retval As String = $"1X11000{_point.Y * 10:0000}{_point.X * 10:0000}"
 
         Dim w As Int32 = CInt(_size.Width * 10)

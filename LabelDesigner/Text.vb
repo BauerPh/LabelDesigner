@@ -2,8 +2,7 @@
 Imports System.ComponentModel
 Imports System.Drawing.Drawing2D
 <Serializable()>
-Public Class Text
-    Inherits Geometric
+Public Class Text : Inherits LabelObject
 
     Private _widthMultiplier As Int32 = 1
     Private _heightMultiplier As Int32 = 1
@@ -54,7 +53,11 @@ Public Class Text
         End Set
     End Property
 
-    Public Sub draw(ByRef g As Graphics, origin As Point)
+    Public Sub New()
+        _name = "Text"
+    End Sub
+
+    Public Overrides Sub draw(ByRef g As Graphics, origin As Point)
         Dim pos As New Size(mmToPx(_point.X), mmToPx(_point.Y) * -1)
         Dim newOrigin As New Point
         newOrigin = origin + pos
@@ -70,8 +73,7 @@ Public Class Text
         End If
     End Sub
 
-    Public Function generateDPLCode() As String
-        'FA+ 
+    Public Overrides Function generateDPLCode() As String
         Return $"19{NumToMultiplier(_widthMultiplier)}{NumToMultiplier(_heightMultiplier)}S01{_point.Y * 10:0000}{_point.X * 10:0000}P{_charSize:000}P{_charSize:000}{_dataString}" & CRString
     End Function
 End Class

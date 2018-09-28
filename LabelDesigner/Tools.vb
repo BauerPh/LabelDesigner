@@ -77,7 +77,7 @@ Module Tools
         Return CInt(Math.Round(mm * vars.label.mmToPx))
     End Function
 
-    Function PxTomm(Px As Int32) As Single
+    Function PxToMm(Px As Int32) As Single
         Return CSng(Px) / vars.label.mmToPx
     End Function
 
@@ -98,13 +98,12 @@ Module Tools
 
     Public Function saveFile(Optional filename As String = Nothing) As Boolean
         Dim fs As FileStream = Nothing
-        Dim tmpFilename As String
+        Dim tmpFilename As String = Nothing
         Dim fileDialog As New SaveFileDialog
         fileDialog.Filter = "Label Designer Dateien|*.ld"
         Dim success As Boolean = False
         Try
             If filename Is Nothing Then
-                tmpFilename = fileDialog.FileName
                 ' Datei auswählen
                 If fileDialog.ShowDialog() = DialogResult.OK Then
                     tmpFilename = fileDialog.FileName
@@ -129,6 +128,10 @@ Module Tools
             ' Datei schließen
             If fs IsNot Nothing Then fs.Close()
         End Try
+
+        If success Then
+            updateTitle()
+        End If
 
         Return success
     End Function
@@ -161,6 +164,19 @@ Module Tools
             End If
         End If
 
+        If success Then
+            updateTitle()
+        End If
+
         Return success
     End Function
+
+    Public Sub updateTitle()
+        If actFilename.Length > 0 Then
+            frmMain.Text = AppName & " " & VersionString & " - " & actFilename
+        Else
+            frmMain.Text = AppName & " " & VersionString
+        End If
+    End Sub
+
 End Module
