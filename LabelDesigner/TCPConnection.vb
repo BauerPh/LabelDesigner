@@ -54,8 +54,8 @@ Public Class TCPConnection
             'check connection
             If _client.Connected Then
                 _stream = _client.GetStream
-                _streamw = New StreamWriter(_stream, Encoding.ASCII)
-                _streamr = New StreamReader(_stream, Encoding.ASCII)
+                _streamw = New StreamWriter(_stream, Encoding.GetEncoding(437))
+                _streamr = New StreamReader(_stream, Encoding.GetEncoding(437))
                 e.Result = 1 'connect okay
             Else
                 e.Result = 0 'connect error

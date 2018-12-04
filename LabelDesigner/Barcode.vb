@@ -24,6 +24,8 @@ Public Class Barcode : Inherits LabelObject
     Private _symbolHeight As Int32 = 5
     Private _data As String = _typExampString(0)
     Private _image As Image
+    Private _factorX As Int32 = 53
+    Private _factorY As Int32 = 1
 
     <Category("Barcode")>
     Public Property Typ As enumTyp
@@ -72,6 +74,24 @@ Public Class Barcode : Inherits LabelObject
             _data = Value
         End Set
     End Property
+    <Category("Anzeige")>
+    Public Property FaktorX As Int32
+        Get
+            Return _factorX
+        End Get
+        Set
+            _factorX = Value
+        End Set
+    End Property
+    <Category("Anzeige")>
+    Public Property FaktorY As Int32
+        Get
+            Return _factorY
+        End Get
+        Set
+            _factorY = Value
+        End Set
+    End Property
     Public Sub New()
         If Not IO.File.Exists(ResourceFilePathPrefix & "barcode.png") Then
             MessageBox.Show("Die Datei ""barcode.png"" wurde nicht gefunden!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -86,15 +106,19 @@ Public Class Barcode : Inherits LabelObject
             Dim pos As New Size(mmToPx(_point.X), mmToPx(_point.Y) * -1)
             Dim newOrigin As New Point
             newOrigin = origin + pos
-
-            Dim imgSize As New Size(48 * _narrowBarWidth, 10 * _symbolHeight)
+            Dim imgSize As Size
+            If _narrowBarWidth = 0 Or _symbolHeight = 0 Then
+                imgSize = New Size(_factorX, _factorY)
+            Else
+                imgSize = New Size(_factorX * _narrowBarWidth, _factorY * _symbolHeight)
+            End If
 
             g.DrawImage(_image, newOrigin.X, newOrigin.Y - imgSize.Height, imgSize.Width, imgSize.Height)
 
-            If _highlight Then
-                g.DrawRectangle(New Pen(Color.GreenYellow, 5.0), newOrigin.X, newOrigin.Y - imgSize.Height, imgSize.Width, imgSize.Height)
+                If _highlight Then
+                    g.DrawRectangle(New Pen(Color.GreenYellow, 5.0), newOrigin.X, newOrigin.Y - imgSize.Height, imgSize.Width, imgSize.Height)
+                End If
             End If
-        End If
     End Sub
 
     Public Overrides Function generateDPLCode() As String
